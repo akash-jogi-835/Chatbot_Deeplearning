@@ -6,6 +6,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
 import random
 import os
+from collections import Counter
 
 # Load intents
 with open("intents.json") as file:
@@ -29,6 +30,7 @@ def train_and_save():
     from sklearn.preprocessing import LabelEncoder
     import pickle
     from sklearn.model_selection import train_test_split
+    from collections import Counter
 
     with open('intents.json') as file:
         data = json.load(file)
@@ -62,11 +64,24 @@ def train_and_save():
     sequences = tokenizer.texts_to_sequences(training_sentences)
     padded_sequences = pad_sequences(sequences, truncating='post', maxlen=max_len)
 
-    # Split data for validation
-    X_train, X_val, y_train, y_val = train_test_split(
-        padded_sequences, np.array(training_labels_enc), 
-        test_size=0.2, random_state=42, stratify=training_labels_enc
-    )
+    # Check class distribution before splitting
+    class_counts = Counter(training_labels_enc)
+    min_class_count = min(class_counts.values())
+    # Optional: print class distribution for debugging
+    print("Class distribution:", class_counts)
+
+    if min_class_count < 2:
+        # If any class has less than 2 samples, do not stratify
+        X_train, X_val, y_train, y_val = train_test_split(
+            padded_sequences, np.array(training_labels_enc),
+            test_size=0.2, random_state=42
+        )
+    else:
+        # Stratify if possible
+        X_train, X_val, y_train, y_val = train_test_split(
+            padded_sequences, np.array(training_labels_enc),
+            test_size=0.2, random_state=42, stratify=training_labels_enc
+        )
 
     # Improved model architecture
     model = Sequential()
@@ -174,7 +189,7 @@ if model and tokenizer and lbl_encoder:
             st.session_state['chat_history'].append((user_input, response))
             
             # Clear the input after processing
-            st.rerun()
+            st.experimental_rerun()
 else:
     st.warning('Model not found. Please train the model first.')
 
