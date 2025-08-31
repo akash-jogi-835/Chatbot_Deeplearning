@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import json
 from tensorflow import keras
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
 import random
 import os
@@ -146,26 +147,34 @@ if model and tokenizer and lbl_encoder:
             # Preprocess input
             processed_input = user_input.lower().strip()
             sequence = tokenizer.texts_to_sequences([processed_input])
-            padded_sequence = pad_sequences(sequence, truncating='post', maxlen=max_len)
             
-            result = model.predict(padded_sequence, verbose=0)
-            predicted_prob = np.max(result)
-            
-            # Add confidence threshold
-            confidence_threshold = 0.7
-            if predicted_prob < confidence_threshold:
-                response = "I'm not sure I understand. Could you rephrase that?"
+            # Check if sequence is empty (word not in vocabulary)
+            if not sequence or all(s == 0 for s in sequence[0]):
+                response = "I'm not familiar with those words. Could you try rephrasing?"
             else:
-                tag = lbl_encoder.inverse_transform([np.argmax(result)])
-                response = None
-                for i in data['intents']:
-                    if i['tag'] == tag[0]:
-                        response = random.choice(i['responses'])
-                        break
-                if response is None:
-                    response = "Sorry, I didn't understand that."
+                padded_sequence = pad_sequences(sequence, truncating='post', maxlen=max_len)
+                
+                result = model.predict(padded_sequence, verbose=0)
+                predicted_prob = np.max(result)
+                
+                # Add confidence threshold
+                confidence_threshold = 0.7
+                if predicted_prob < confidence_threshold:
+                    response = "I'm not sure I understand. Could you rephrase that?"
+                else:
+                    tag = lbl_encoder.inverse_transform([np.argmax(result)])
+                    response = None
+                    for i in data['intents']:
+                        if i['tag'] == tag[0]:
+                            response = random.choice(i['responses'])
+                            break
+                    if response is None:
+                        response = "Sorry, I didn't understand that."
             
             st.session_state['chat_history'].append((user_input, response))
+            
+            # Clear the input after processing
+            st.rerun()
 else:
     st.warning('Model not found. Please train the model first.')
 
