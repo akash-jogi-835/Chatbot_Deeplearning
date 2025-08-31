@@ -12,7 +12,7 @@ with open("intents.json") as file:
 
 # Load model and preprocessing objects
 def load_resources():
-    model = keras.models.load_model('chat_model')
+    model = keras.models.load_model('chat_model.keras')
     with open('tokenizer.pickle', 'rb') as handle:
         tokenizer = pickle.load(handle)
     with open('label_encoder.pickle', 'rb') as enc:
@@ -69,7 +69,8 @@ def train_and_save():
     model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     model.fit(padded_sequences, np.array(training_labels_enc), epochs=500)
 
-    model.save("chat_model")
+    # Save model with .keras extension for compatibility
+    model.save("chat_model.keras")
     with open('tokenizer.pickle', 'wb') as handle:
         pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
     with open('label_encoder.pickle', 'wb') as ecn_file:
@@ -81,7 +82,7 @@ if st.button('Train Model'):
     st.success('Model trained and saved! Please reload the app to chat with the new model.')
 
 # Only load resources if model exists
-if os.path.exists('chat_model') and os.path.exists('tokenizer.pickle') and os.path.exists('label_encoder.pickle'):
+if os.path.exists('chat_model.keras') and os.path.exists('tokenizer.pickle') and os.path.exists('label_encoder.pickle'):
     model, tokenizer, lbl_encoder = load_resources()
     max_len = 20
 else:
