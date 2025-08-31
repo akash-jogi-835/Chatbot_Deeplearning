@@ -10,20 +10,24 @@ import os
 st.sidebar.title("🗂️ Navigation")
 if 'all_chats' not in st.session_state:
     st.session_state['all_chats'] = []
-
-if st.sidebar.button('New Chat'):
-    if st.session_state.get('chat_history'):
-        st.session_state['all_chats'].append(st.session_state['chat_history'])
+if 'chat_history' not in st.session_state:
     st.session_state['chat_history'] = []
-    st.experimental_rerun()
+
+# New Chat button logic
+new_chat_clicked = st.sidebar.button('New Chat')
+if new_chat_clicked:
+    if st.session_state['chat_history']:
+        st.session_state['all_chats'].append(st.session_state['chat_history'].copy())
+    st.session_state['chat_history'] = []
+    # Do not call st.experimental_rerun() here
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("Chat History")
 if st.session_state['all_chats']:
     for idx, chat in enumerate(st.session_state['all_chats']):
-        if st.sidebar.button(f"Chat {idx+1}"):
-            st.session_state['chat_history'] = chat
-            st.experimental_rerun()
+        if st.sidebar.button(f"Chat {idx+1}", key=f"chat_{idx}"):
+            st.session_state['chat_history'] = chat.copy()
+            # Do not call st.experimental_rerun() here
 else:
     st.sidebar.write("No previous chats yet.")
 
