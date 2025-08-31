@@ -117,7 +117,8 @@ chat_placeholder = st.container()
 with chat_placeholder:
     if model and tokenizer and lbl_encoder:
         user_input = st.text_input("You:", "", key="user_input")
-        if user_input:
+        send_clicked = st.button("Send", key="send_btn")
+        if send_clicked and user_input:
             if user_input.lower() == "quit":
                 st.write("Chat ended.")
             else:
@@ -132,6 +133,7 @@ with chat_placeholder:
                 if response is None:
                     response = "Sorry, I didn't understand that."
                 st.session_state['chat_history'].append((user_input, response))
+                st.session_state['user_input'] = ""  # Clear input box
                 st.experimental_rerun()
     else:
         st.warning('Model not found. Please train the model first.')
