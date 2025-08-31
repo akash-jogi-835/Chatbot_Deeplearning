@@ -1,35 +1,59 @@
 {"intents": [
     {"tag": "greeting",
-     "patterns": ["Hi", "Hey", "Is anyone there?", "Hello", "Hay"],
-     "responses": ["Hello", "Hi", "Hi there"]
+     "patterns": ["Hi", "Hey", "Is anyone there?", "Hello", "Hay", "Good morning", "Good evening", "What's up?", "Howdy", "Greetings", "Hey there!", "Hi there!", "Yo!", "Hello there!"],
+     "responses": ["Hello!", "Hi!", "Hi there!", "Hey! How can I help you today?", "Greetings! How can I assist?"]
     },
     {"tag": "goodbye",
-     "patterns": ["Bye", "See you later", "Goodbye"],
-     "responses": ["See you later", "Have a nice day", "Bye! Come back again"]
+     "patterns": ["Bye", "See you later", "Goodbye", "Catch you later", "See ya", "Talk to you later", "Farewell", "Bye bye", "Take care"],
+     "responses": ["See you later!", "Have a nice day!", "Bye! Come back again!", "Goodbye!", "Take care!"]
     },
     {"tag": "thanks",
-     "patterns": ["Thanks", "Thank you", "That's helpful", "Thanks for the help"],
-     "responses": ["Happy to help!", "Any time!", "My pleasure", "You're most welcome!"]
+     "patterns": ["Thanks", "Thank you", "That's helpful", "Thanks for the help", "Much appreciated", "Thank you so much", "Thanks a lot", "I appreciate it", "You're the best!"],
+     "responses": ["Happy to help!", "Any time!", "My pleasure!", "You're most welcome!", "Glad I could help!"]
     },
     {"tag": "about",
-     "patterns": ["Who are you?", "What are you?", "Who you are?" ],
-     "responses": ["I.m Joana, your bot assistant", "I'm Joana, an Artificial Intelligent bot"]
+     "patterns": ["Who are you?", "What are you?", "Who you are?", "Tell me about yourself", "What can you do?", "Are you a robot?", "What is your purpose?"],
+     "responses": ["I'm Jarvis, your bot assistant.", "I'm Jarvis, an Artificial Intelligent bot.", "I'm a virtual assistant designed to help you."]
     },
     {"tag": "name",
-    "patterns": ["what is your name", "what should I call you", "whats your name?"],
-    "responses": ["You can call me Joana.", "I'm Joana!", "Just call me as Joana"]
+     "patterns": ["what is your name", "what should I call you", "whats your name?", "Do you have a name?", "Who am I talking to?"],
+     "responses": ["You can call me Jarvis.", "I'm Jarvis!", "Just call me Jarvis.", "My name is Jarvis, your assistant."]
     },
     {"tag": "help",
-    "patterns": ["Could you help me?", "give me a hand please", "Can you help?", "What can you do for me?", "I need a support", "I need a help", "support me please"],
-    "responses": ["Tell me how can assist you", "Tell me your problem to assist you", "Yes Sure, How can I support you"]
+     "patterns": ["Could you help me?", "give me a hand please", "Can you help?", "What can you do for me?", "I need a support", "I need a help", "support me please", "I need assistance", "Can you assist me?", "Help!", "I need help"],
+     "responses": ["Tell me how I can assist you.", "Tell me your problem to assist you.", "Yes, sure! How can I support you?", "I'm here to help. What do you need?", "Let me know how I can help!"]
     },
     {"tag": "createaccount",
-    "patterns": ["I need to create a new account", "how to open a new account", "I want to create an account", "can you create an account for me", "how to open a new account"],
-    "responses": ["You can just easily create a new account from our web site", "Just go to our web site and follow the guidelines to create a new account"]
+     "patterns": ["I need to create a new account", "how to open a new account", "I want to create an account", "can you create an account for me", "how to open a new account", "Sign me up", "Register me", "How do I register?", "I want to sign up"],
+     "responses": ["You can easily create a new account from our website.", "Just go to our website and follow the guidelines to create a new account.", "Visit our registration page to get started."]
     },
     {"tag": "complaint",
-    "patterns": ["have a complaint", "I want to raise a complaint", "there is a complaint about a service"],
-    "responses": ["Please provide us your complaint in order to assist you", "Please mention your complaint, we will reach you and sorry for any inconvenience caused"]
+     "patterns": ["have a complaint", "I want to raise a complaint", "there is a complaint about a service", "I am not happy with the service", "I want to report an issue", "I have a problem", "I want to file a complaint", "I need to complain"],
+     "responses": ["Please provide us your complaint in order to assist you.", "Please mention your complaint, we will reach you and sorry for any inconvenience caused.", "We're sorry to hear that. Please describe your issue."]
+    },
+    {"tag": "weather",
+     "patterns": ["What's the weather like?", "Tell me the weather", "Is it raining?", "How's the weather today?", "Weather update", "Is it sunny?", "Do I need an umbrella?"],
+     "responses": ["I'm not connected to live weather data, but you can check your favorite weather app!", "I can't provide real-time weather, but I hope it's nice where you are!", "Sorry, I can't check the weather right now."]
+    },
+    {"tag": "joke",
+     "patterns": ["Tell me a joke", "Make me laugh", "Do you know any jokes?", "Say something funny", "I want to hear a joke"],
+     "responses": ["Why did the computer show up at work late? It had a hard drive!", "Why was the math book sad? Because it had too many problems.", "Why don't scientists trust atoms? Because they make up everything!"]
+    },
+    {"tag": "time",
+     "patterns": ["What time is it?", "Tell me the time", "Current time", "Can you tell me the time?", "Do you know the time?"],
+     "responses": ["I'm not connected to a clock, but you can check your device for the current time!", "Sorry, I can't tell the time right now."]
+    },
+    {"tag": "smalltalk",
+     "patterns": ["How are you?", "How's it going?", "What's up?", "How do you do?", "Are you okay?", "How are you doing?"],
+     "responses": ["I'm just a bot, but I'm doing great! How can I help you?", "I'm here to assist you!", "I'm always ready to help."]
+    },
+    {"tag": "affirmative",
+     "patterns": ["Yes", "Yeah", "Sure", "Absolutely", "Of course", "Definitely", "Yup", "Indeed"],
+     "responses": ["Great!", "Awesome!", "Good to know!", "Alright!"]
+    },
+    {"tag": "negative",
+     "patterns": ["No", "Nope", "Not really", "I don't think so", "Nah", "No way"],
+     "responses": ["Okay, let me know if you need anything else.", "Alright, just ask if you need help!", "No problem!"]
     }
 ]
 }
